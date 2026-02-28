@@ -1,17 +1,17 @@
-// src/app/guards/auth.guard.ts
+// src/app/guards/no-auth.guard.ts
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
 
-export const authGuard: CanActivateFn = () => {
+export const noAuthGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
   return toObservable(authService.isAuthReady).pipe(
-    filter(ready => ready), // warten bis Firebase Auth-Status bekannt ist
+    filter(ready => ready),
     take(1),
-    map(() => authService.isLoggedIn() ? true : router.createUrlTree(['/login']))
+    map(() => authService.isLoggedIn() ? router.createUrlTree(['/']) : true)
   );
 };
