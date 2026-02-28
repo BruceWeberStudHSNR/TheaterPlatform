@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "g:component": "node scripts/generate.mjs component",
+    "g:container": "node scripts/generate.mjs container",
+    "g:service":   "node scripts/generate.mjs service"
   },
   "prettier": {
     "printWidth": 100,
@@ -29,6 +32,7 @@
     "@angular/forms": "^21.1.0",
     "@angular/platform-browser": "^21.1.0",
     "@angular/router": "^21.1.0",
+    "firebase": "^12.10.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
