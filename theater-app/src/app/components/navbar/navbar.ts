@@ -13,4 +13,9 @@ export class NavbarComponent {
   isMenuOpen = false;
   constructor(public authService: AuthService) { }
   toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
+
+  logout(): void {
+    this.toggleMenu()
+    this.authService.logout()
+  }
 }

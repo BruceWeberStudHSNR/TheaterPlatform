@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  User
+  User,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { auth } from '../core/firebase';
 
@@ -32,4 +33,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.currentUser() !== null;
   }
+
+  async resetPassword(email: string): Promise<void> {
+  await sendPasswordResetEmail(auth, email);
+}
 }

@@ -1,5 +1,5 @@
 // src/app/containers/login/login.component.ts
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth';
@@ -14,9 +14,13 @@ export class LoginComponent {
   email = '';
   password = '';
   errorMessage = '';
+  successMessage = '';
   isLoading = false;
+  showResetForm = false;
+  resetEmail = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+    private cdr: ChangeDetectorRef) { }
 
   async onSubmit() {
     this.errorMessage = '';
@@ -27,6 +31,22 @@ export class LoginComponent {
       this.errorMessage = this.getErrorMessage(error.code);
     } finally {
       this.isLoading = false;
+    }
+    this.cdr.detectChanges();
+  }
+
+  async onResetPassword() {
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.isLoading = true;
+    try {
+      await this.authService.resetPassword(this.resetEmail);
+    } catch {
+      // fehler ignorieren
+    } finally {
+      this.successMessage = 'Falls ein Konto mit dieser E-Mail existiert, wurde ein Reset-Link gesendet.';
+      this.isLoading = false;
+      this.cdr.detectChanges(); // ← Angular manuell triggern
     }
   }
 

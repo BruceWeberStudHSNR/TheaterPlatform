@@ -122,4 +122,24 @@
     class="hover:text-yellow-400 transition"
     >Kontakt</a
   >
+  @if (authService.isLoggedIn()) {
+    <a
+      routerLink="/aktuelles"
+      routerLinkActive="text-yellow-400"
+      class="hover:text-yellow-400 transition"
+      (click)="toggleMenu()"
+      >Aktuelles Projekt</a
+    >
+    <button (click)="logout()" class="hover:text-yellow-400 transition">
+      Abmelden
+    </button>
+  } @else {
+    <a
+      routerLink="/login"
+      routerLinkActive="text-yellow-400"
+      class="hover:text-yellow-400 transition"
+      (click)="toggleMenu()"
+      >Anmelden</a
+    >
+  }
 </div>
