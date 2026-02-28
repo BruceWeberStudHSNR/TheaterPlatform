@@ -1,0 +1,11 @@
+main {
+  display: grid;
+}
+
+main > *:not(router-outlet) {
+  min-height: 100%;
+}
+
+router-outlet {
+  display: none;
+}

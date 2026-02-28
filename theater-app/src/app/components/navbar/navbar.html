@@ -1,52 +1,22 @@
 <nav class="bg-gray-900 text-white px-6 py-4 relative z-50">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <!-- Logo -->
     <a routerLink="/" class="text-xl font-bold tracking-wide">🎭 Theatergruppe</a>
 
     <!-- Desktop Links -->
     <ul class="hidden md:flex gap-6 items-center">
-      <li>
-        <a
-          routerLink="/"
+      @for (item of visibleItems(); track item.path) {
+        <li
+          [routerLink]="item.path"
           routerLinkActive="text-yellow-400"
-          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLinkActiveOptions]="{ exact: item.path === '/' }"
           class="hover:text-yellow-400 transition"
-          >Home</a
         >
-      </li>
-      <li>
-        <a
-          routerLink="/auffuehrungen"
-          routerLinkActive="text-yellow-400"
-          class="hover:text-yellow-400 transition"
-          >Aufführungen</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/ueber-uns"
-          routerLinkActive="text-yellow-400"
-          class="hover:text-yellow-400 transition"
-          >Über uns</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/kontakt"
-          routerLinkActive="text-yellow-400"
-          class="hover:text-yellow-400 transition"
-          >Kontakt</a
-        >
-      </li>
-      @if (authService.isLoggedIn()) {
-        <li>
-          <a
-            routerLink="/aktuelles"
-            routerLinkActive="text-yellow-400"
-            class="hover:text-yellow-400 transition"
-            >Aktuelles Projekt</a
-          >
+          <a>
+            {{ item.label }}
+          </a>
         </li>
+      }
+      @if (authService.isLoggedIn()) {
         <li>
           <button (click)="authService.logout()" class="hover:text-yellow-400 transition">
             Abmelden
@@ -58,8 +28,9 @@
             routerLink="/login"
             routerLinkActive="text-yellow-400"
             class="hover:text-yellow-400 transition"
-            >Anmelden</a
           >
+            Anmelden
+          </a>
         </li>
       }
     </ul>
@@ -93,53 +64,29 @@
   [class.translate-x-full]="!isMenuOpen"
   [class.translate-x-0]="isMenuOpen"
 >
-  <a
-    routerLink="/"
-    (click)="toggleMenu()"
-    routerLinkActive="text-yellow-400"
-    [routerLinkActiveOptions]="{ exact: true }"
-    class="hover:text-yellow-400 transition"
-    >Home</a
-  >
-  <a
-    routerLink="/auffuehrungen"
-    (click)="toggleMenu()"
-    routerLinkActive="text-yellow-400"
-    class="hover:text-yellow-400 transition"
-    >Aufführungen</a
-  >
-  <a
-    routerLink="/ueber-uns"
-    (click)="toggleMenu()"
-    routerLinkActive="text-yellow-400"
-    class="hover:text-yellow-400 transition"
-    >Über uns</a
-  >
-  <a
-    routerLink="/kontakt"
-    (click)="toggleMenu()"
-    routerLinkActive="text-yellow-400"
-    class="hover:text-yellow-400 transition"
-    >Kontakt</a
-  >
-  @if (authService.isLoggedIn()) {
+  @for (item of visibleItems(); track item.path) {
     <a
-      routerLink="/aktuelles"
-      routerLinkActive="text-yellow-400"
-      class="hover:text-yellow-400 transition"
+      [routerLink]="item.path"
       (click)="toggleMenu()"
-      >Aktuelles Projekt</a
+      routerLinkActive="text-yellow-400"
+      [routerLinkActiveOptions]="{ exact: item.path === '/' }"
+      class="hover:text-yellow-400 transition"
     >
-    <button (click)="logout()" class="hover:text-yellow-400 transition">
+      {{ item.label }}
+    </a>
+  }
+  @if (authService.isLoggedIn()) {
+    <button (click)="authService.logout()" class="hover:text-yellow-400 transition">
       Abmelden
     </button>
   } @else {
     <a
       routerLink="/login"
+      (click)="toggleMenu()"
       routerLinkActive="text-yellow-400"
       class="hover:text-yellow-400 transition"
-      (click)="toggleMenu()"
-      >Anmelden</a
     >
+      Anmelden
+    </a>
   }
 </div>
