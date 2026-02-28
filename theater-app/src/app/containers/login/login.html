@@ -1,0 +1,48 @@
+<!-- src/app/containers/login/login.component.html -->
+<div class="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+  <div class="bg-gray-900 text-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+
+    <h1 class="text-3xl font-bold text-center mb-2">🎭 Willkommen</h1>
+    <p class="text-gray-400 text-center mb-8">Melde dich an um fortzufahren</p>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="mb-4">
+        <label class="block text-sm text-gray-400 mb-1">E-Mail</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          class="w-full bg-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          placeholder="name@beispiel.de"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm text-gray-400 mb-1">Passwort</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          class="w-full bg-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          placeholder="••••••••"
+        />
+      </div>
+
+      @if (errorMessage) {
+        <p class="text-red-400 text-sm mb-4">{{ errorMessage }}</p>
+      }
+
+      <button
+        type="submit"
+        [disabled]="isLoading"
+        class="w-full bg-yellow-400 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ isLoading ? 'Wird angemeldet...' : 'Anmelden' }}
+      </button>
+
+    </form>
+  </div>
+</div>

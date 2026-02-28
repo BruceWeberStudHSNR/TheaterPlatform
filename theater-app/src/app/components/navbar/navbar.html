@@ -1,25 +1,86 @@
 <nav class="bg-gray-900 text-white px-6 py-4 relative z-50">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
-
     <!-- Logo -->
     <a routerLink="/" class="text-xl font-bold tracking-wide">🎭 Theatergruppe</a>
 
     <!-- Desktop Links -->
     <ul class="hidden md:flex gap-6 items-center">
-      <li><a routerLink="/" routerLinkActive="text-yellow-400" [routerLinkActiveOptions]="{exact: true}" class="hover:text-yellow-400 transition">Home</a></li>
-      <li><a routerLink="/auffuehrungen" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Aufführungen</a></li>
-      <li><a routerLink="/aktuelles" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Aktuelles Projekt</a></li>
-      <li><a routerLink="/ueber-uns" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Über uns</a></li>
-      <li><a routerLink="/kontakt" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Kontakt</a></li>
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="text-yellow-400"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="hover:text-yellow-400 transition"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/auffuehrungen"
+          routerLinkActive="text-yellow-400"
+          class="hover:text-yellow-400 transition"
+          >Aufführungen</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/ueber-uns"
+          routerLinkActive="text-yellow-400"
+          class="hover:text-yellow-400 transition"
+          >Über uns</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/kontakt"
+          routerLinkActive="text-yellow-400"
+          class="hover:text-yellow-400 transition"
+          >Kontakt</a
+        >
+      </li>
+      @if (authService.isLoggedIn()) {
+        <li>
+          <a
+            routerLink="/aktuelles"
+            routerLinkActive="text-yellow-400"
+            class="hover:text-yellow-400 transition"
+            >Aktuelles Projekt</a
+          >
+        </li>
+        <li>
+          <button (click)="authService.logout()" class="hover:text-yellow-400 transition">
+            Abmelden
+          </button>
+        </li>
+      } @else {
+        <li>
+          <a
+            routerLink="/login"
+            routerLinkActive="text-yellow-400"
+            class="hover:text-yellow-400 transition"
+            >Anmelden</a
+          >
+        </li>
+      }
     </ul>
 
     <!-- Burger Button -->
     <button (click)="toggleMenu()" class="md:hidden focus:outline-none z-[60]">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         @if (!isMenuOpen) {
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         } @else {
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
         }
       </svg>
     </button>
@@ -28,13 +89,37 @@
 
 <!-- Fullscreen Mobile Menu -->
 <div
-  class="fixed inset-0 bg-gray-900 text-white z-40 flex flex-col items-center justify-center gap-8 text-2xl font-semibold
-         transition-transform duration-300 ease-in-out md:hidden"
+  class="fixed inset-0 bg-gray-900 text-white z-40 flex flex-col items-center justify-center gap-8 text-2xl font-semibold transition-transform duration-300 ease-in-out md:hidden"
   [class.translate-x-full]="!isMenuOpen"
   [class.translate-x-0]="isMenuOpen"
 >
-  <a routerLink="/" (click)="toggleMenu()" routerLinkActive="text-yellow-400" [routerLinkActiveOptions]="{exact: true}" class="hover:text-yellow-400 transition">Home</a>
-  <a routerLink="/auffuehrungen" (click)="toggleMenu()" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Aufführungen</a>
-  <a routerLink="/ueber-uns" (click)="toggleMenu()" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Über uns</a>
-  <a routerLink="/kontakt" (click)="toggleMenu()" routerLinkActive="text-yellow-400" class="hover:text-yellow-400 transition">Kontakt</a>
+  <a
+    routerLink="/"
+    (click)="toggleMenu()"
+    routerLinkActive="text-yellow-400"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="hover:text-yellow-400 transition"
+    >Home</a
+  >
+  <a
+    routerLink="/auffuehrungen"
+    (click)="toggleMenu()"
+    routerLinkActive="text-yellow-400"
+    class="hover:text-yellow-400 transition"
+    >Aufführungen</a
+  >
+  <a
+    routerLink="/ueber-uns"
+    (click)="toggleMenu()"
+    routerLinkActive="text-yellow-400"
+    class="hover:text-yellow-400 transition"
+    >Über uns</a
+  >
+  <a
+    routerLink="/kontakt"
+    (click)="toggleMenu()"
+    routerLinkActive="text-yellow-400"
+    class="hover:text-yellow-400 transition"
+    >Kontakt</a
+  >
 </div>

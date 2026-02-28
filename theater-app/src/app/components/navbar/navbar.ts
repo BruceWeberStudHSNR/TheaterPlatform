@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent {
   isMenuOpen = false;
-  isLoggedIn = false; // später durch AuthService ersetzen
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
+  constructor(public authService: AuthService) { }
+  toggleMenu() { this.isMenuOpen = !this.isMenuOpen; }
 }
