@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { environment } from '../../environment/environment';
+import { environment } from '@env/environment';
 import { getAuth } from 'firebase/auth';
 
 const app = initializeApp(environment.firebase);
