@@ -44,8 +44,9 @@ export class RolesComponent implements OnInit {
 
   async loadApplicants() {
     this.isLoading = true;
+    const data = await this.roleService.getAllRoles();
     for (const role of this.roles) {
-      role.applicants = await this.roleService.getApplicants(role.id);
+      role.applicants = data[role.id] ?? [];
     }
     this.isLoading = false;
     this.cdr.detectChanges();
