@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { filter, from, map, switchMap, take } from 'rxjs';
+import { filter, from, map, switchMap, take, tap } from 'rxjs';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../core/firebase';
 
@@ -29,12 +29,15 @@ export const approvedGuard: CanActivateFn = () => {
       if (!user) return from(Promise.resolve(router.createUrlTree(['/login'])));
       return from(
         getDoc(doc(db, 'users', user.uid)).then(snapshot => {
+          console.log('exists:', snapshot.exists());
+          console.log('data:', snapshot.data());
           const data = snapshot.data();
           if (data?.['approved'] === true) return true;
           return router.createUrlTree(['/pending']);
         })
       );
-    })
+    }),
+    tap(v => console.log(v))
   );
 };
 

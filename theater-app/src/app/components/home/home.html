@@ -1,0 +1,32 @@
+<div class="bg-gray-950 flex h-full items-center justify-center px-4">
+  <div class="bg-gray-900 text-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
+    <div class="text-6xl mb-6">🎭</div>
+    <h1 class="text-3xl font-bold mb-2">Theaterapp</h1>
+    <p class="text-yellow-400 text-sm font-semibold uppercase tracking-widest mb-6">
+      Work in Progress
+    </p>
+    @if (authService.isLoggedIn()) {
+      <a
+        routerLink="/roles"
+        class="block w-full bg-yellow-400 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition"
+      >
+        Zur Rollenverteilung
+      </a>
+    } @else {
+      <p class="text-gray-400 mb-8">
+        Die App befindet sich noch im Aufbau. Registriere dich jetzt und warte auf die Freigabe
+        durch einen Admin.
+      </p>
+      <a
+        routerLink="/register"
+        class="block w-full bg-yellow-400 text-gray-900 font-bold py-3 rounded-lg hover:bg-yellow-300 transition"
+      >
+        Jetzt registrieren
+      </a>
+      <p class="text-center text-sm text-gray-400 mt-4">
+        Bereits ein Konto?
+        <a routerLink="/login" class="text-yellow-400 hover:underline">Anmelden</a>
+      </p>
+    }
+  </div>
+</div>
