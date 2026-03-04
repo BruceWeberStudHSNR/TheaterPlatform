@@ -1,67 +1,50 @@
-<!-- src/app/containers/roles/roles.component.html -->
-<div class="bg-gray-950 h-full text-white px-6 py-12">
+<div class="bg-gray-950 min-h-full text-white px-4 py-10">
   <div class="max-w-5xl mx-auto">
-
     <h1 class="text-3xl font-bold mb-2">Rollenverteilung</h1>
-    <p class="text-gray-400 mb-10">Bewirb dich für eine oder mehrere Rollen</p>
+    <p class="text-gray-400 mb-8">Bewirb dich für eine oder mehrere Rollen</p>
 
     @if (isLoading) {
       <p class="text-gray-400">Lädt...</p>
     } @else {
-      <div class="overflow-x-auto rounded-2xl">
-        <table class="w-full text-left bg-gray-900 rounded-2xl overflow-hidden">
-          <thead>
-            <tr class="bg-gray-800 text-gray-400 text-sm uppercase">
-              <th class="px-6 py-4">Rolle</th>
-              <th class="px-6 py-4">Beschreibung</th>
-              <th class="px-6 py-4">Bewerbungen</th>
-              <th class="px-6 py-4"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (role of roles; track role.id) {
-              <tr class="border-t border-gray-800 hover:bg-gray-800 transition">
-
-                <td class="px-6 py-4 font-semibold">{{ role.label }}</td>
-
-                <td class="px-6 py-4 text-gray-400">{{ role.description }}</td>
-
-                <td class="px-6 py-4">
-                  @if (role.applicants.length === 0) {
-                    <span class="text-gray-600">Noch keine Bewerbungen</span>
-                  } @else {
-                    <ul class="flex flex-col gap-1">
-                      @for (applicant of role.applicants; track applicant) {
-                        <li class="text-sm text-gray-300">{{ applicant }}</li>
-                      }
-                    </ul>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @for (role of roles; track role.id) {
+          <div class="bg-gray-900 rounded-2xl p-5">
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <h2 class="font-bold text-lg">{{ role.label }}</h2>
+                <p class="text-gray-400 text-sm mt-1">{{ role.description }}</p>
+              </div>
+              @if (hasApplied(role)) {
+                <button
+                  (click)="onWithdraw(role)"
+                  class="shrink-0 bg-red-500 hover:bg-red-400 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+                >
+                  Abmelden
+                </button>
+              } @else {
+                <button
+                  (click)="onApply(role)"
+                  class="shrink-0 bg-yellow-400 hover:bg-yellow-300 text-gray-900 text-sm font-semibold px-4 py-2 rounded-lg transition"
+                >
+                  Bewerben
+                </button>
+              }
+            </div>
+            <div class="border-t border-gray-800 pt-3">
+              @if (role.applicants.length === 0) {
+                <p class="text-gray-600 text-sm">Noch keine Bewerbungen</p>
+              } @else {
+                <p class="text-gray-500 text-xs uppercase mb-1">Bewerbungen</p>
+                <ul class="flex flex-col gap-1">
+                  @for (applicant of role.applicants; track applicant) {
+                    <li class="text-sm text-gray-300">{{ applicant }}</li>
                   }
-                </td>
-
-                <td class="px-6 py-4">
-                  @if (hasApplied(role)) {
-                    <button
-                      (click)="onWithdraw(role)"
-                      class="bg-red-500 hover:bg-red-400 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
-                    >
-                      Abmelden
-                    </button>
-                  } @else {
-                    <button
-                      (click)="onApply(role)"
-                      class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 text-sm font-semibold px-4 py-2 rounded-lg transition"
-                    >
-                      Bewerben
-                    </button>
-                  }
-                </td>
-
-              </tr>
-            }
-          </tbody>
-        </table>
+                </ul>
+              }
+            </div>
+          </div>
+        }
       </div>
     }
-
   </div>
 </div>
