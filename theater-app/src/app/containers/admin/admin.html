@@ -1,0 +1,42 @@
+<div class="min-h-screen bg-gray-50 p-8">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Account Anfragen</h1>
+
+    @if (requests.length === 0) {
+      <div class="text-gray-500 text-center py-12">
+        Keine Anfragen vorhanden.
+      </div>
+    }
+
+    <div class="space-y-4">
+      @for (request of requests; track request.id) {
+        <div class="bg-white rounded-2xl shadow-sm p-6 flex items-center justify-between">
+          <div>
+            <p class="font-medium text-gray-800">{{ request.email }}</p>
+            <span class="text-xs px-2 py-1 rounded-full mt-1 inline-block"
+              [class]="request.approved === true
+                ? 'bg-green-100 text-green-700'
+                : 'bg-yellow-100 text-yellow-700'"
+            >
+              {{ request.status ? 'Freigegeben' : 'Ausstehend' }}
+            </span>
+          </div>
+
+          <button
+            (click)="approve(request)"
+            [disabled]="loadingId === request.id || request.approved"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm"
+          >
+            @if (loadingId === request.id) {
+              Wird gesendet...
+            } @else if (request.approved) {
+              ✅ Freigegeben
+            } @else {
+              Freigeben
+            }
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

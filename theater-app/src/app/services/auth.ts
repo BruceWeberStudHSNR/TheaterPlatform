@@ -6,9 +6,12 @@ import {
   signOut,
   onAuthStateChanged,
   User,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  createUserWithEmailAndPassword
 } from 'firebase/auth';
 import { auth } from '../core/firebase';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { db } from '../core/firebase';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -38,5 +41,16 @@ export class AuthService {
 
   async resetPassword(email: string): Promise<void> {
     await sendPasswordResetEmail(auth, email);
+  }
+
+  async register(email: string, password: string): Promise<void> {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    // User in Firestore anlegen mit approved: false
+    await setDoc(doc(db, 'users', userCredential.user.uid), {
+      email,
+      approved: false,
+      createdAt: serverTimestamp()
+    });
+    this.router.navigate(['/pending']);
   }
 }

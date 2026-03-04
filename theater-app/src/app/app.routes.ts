@@ -1,13 +1,17 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './containers/login/login';
-import { authGuard } from './guards/auth-guard';
+import { adminGuard, approvedGuard, authGuard } from './guards/auth-guard';
 import { RolesComponent } from './containers/roles/roles';
 import { noAuthGuard } from './guards/no-auth-guard';
-import { HomeComponent } from './containers/home/home';
+import { AdminComponent } from './containers/admin/admin';
+import { RegisterComponent } from './containers/register/register';
+import { PendingComponent } from './components/pending/pending';
 
 export const routes: Routes = [
-  { path: '', pathMatch: "full", component: HomeComponent },
   { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
-  { path: 'roles', component: RolesComponent, canActivate: [authGuard] }
+  { path: 'register', component: RegisterComponent, canActivate: [noAuthGuard] },
+  { path: 'roles', component: RolesComponent, canActivate: [authGuard, approvedGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
+  {path:'pending', component: PendingComponent, canActivate: [authGuard]}
   // weitere routen...
 ];
