@@ -13,7 +13,7 @@ import { auth } from '../core/firebase';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   currentUser = signal<User | null>(null);
-    isAuthReady = signal(false); 
+  isAuthReady = signal(false);
 
   constructor(private router: Router) {
     onAuthStateChanged(auth, (user) => {
@@ -37,6 +37,6 @@ export class AuthService {
   }
 
   async resetPassword(email: string): Promise<void> {
-  await sendPasswordResetEmail(auth, email);
-}
+    await sendPasswordResetEmail(auth, email);
+  }
 }
